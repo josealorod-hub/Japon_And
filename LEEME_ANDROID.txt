@@ -1,0 +1,29 @@
+GUÍA DE JAPÓN 2026 — VERSIÓN ANDROID
+
+Esta carpeta contiene una aplicación web instalable (PWA) para Android, con la guía móvil, actividades, transportes, mapas esquemáticos, guardado local y copias de seguridad.
+
+IMPORTANTE
+No basta con abrir index.html desde la app Archivos: Android/Chrome no permite registrar el service worker desde file://. Para que funcionen todos los botones y el uso sin conexión sea fiable, publica estos archivos en una dirección HTTPS. La primera visita necesita conexión.
+
+ARCHIVOS
+- index.html: guía interactiva completa
+- manifest.webmanifest: nombre, aspecto e iconos de la app
+- service-worker.js: guarda los recursos para volver a abrirla sin conexión
+- icons/: iconos para la pantalla de inicio de Android
+
+INSTALACIÓN EN ANDROID
+1. Descomprime la carpeta en un ordenador.
+2. Publica TODO su contenido en un alojamiento estático HTTPS. Por ejemplo, crea un repositorio en GitHub, sube los archivos y activa GitHub Pages. Conserva la estructura de carpetas y los nombres.
+3. Abre la dirección HTTPS publicada en Google Chrome desde el móvil Android.
+4. Espera a que termine de cargar con conexión. En el menú ⋮ de Chrome, selecciona «Instalar aplicación» o «Añadir a pantalla de inicio» (el texto depende de la versión de Android/Chrome).
+5. Abre la guía desde el icono de la pantalla de inicio.
+6. Comprueba los botones y luego activa el modo avión y vuelve a abrir la aplicación para probar el funcionamiento sin conexión.
+
+DATOS Y COPIAS DE SEGURIDAD
+Las actividades y notas se guardan en el almacenamiento local del navegador. No se sincronizan automáticamente entre dispositivos. Usa «Exportar copia» con regularidad y antes de borrar datos del navegador. La importación reemplaza los datos actuales.
+
+MAPAS
+Los mapas incorporados son esquemáticos y funcionan sin conexión. No son cartografía callejera detallada ni proporcionan navegación giro a giro. Los enlaces externos requieren Internet.
+
+PRIVACIDAD
+La guía no envía las actividades a un servidor. El alojamiento solo entrega los archivos de la aplicación; tus datos personales permanecen en el navegador, salvo que exportes y compartas una copia JSON.

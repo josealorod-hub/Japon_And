@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#173c36">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Japón 2026">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>Japón 2026 · Guía para Android</title>
+<style>
+:root{--bg:#f5f4ef;--paper:#fffefa;--ink:#202b29;--muted:#65716d;--green:#173c36;--green2:#285e52;--red:#b54d3d;--line:#e1e4dc;--gold:#d6a84f;--shadow:0 8px 24px #173c3610}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.hero{background:linear-gradient(125deg,#173c36,#2f6558);color:#fff;padding:30px max(20px,calc((100vw - 1120px)/2)) 26px;position:relative;overflow:hidden}
+.hero:after{content:"旅";font-size:230px;line-height:1;position:absolute;right:5%;top:-45px;color:#ffffff0b;font-weight:800;pointer-events:none}
+.eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:.76rem;font-weight:700;color:#d9c48e}.hero h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1.05;margin:.4rem 0}.hero p{max-width:680px;color:#e1ece7;margin:.6rem 0 1.2rem}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px}.stat{background:#ffffff16;border:1px solid #ffffff28;border-radius:12px;padding:9px 13px;font-size:.9rem}
+.wrap{max-width:1120px;margin:auto;padding:22px 18px 48px}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px}.btn{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:10px;padding:10px 14px;font-weight:650;box-shadow:0 2px 5px #00000005}.btn.primary{background:var(--green);border-color:var(--green);color:white}.btn.soft{background:#e8eee8;border-color:#dbe5dc;color:var(--green)}.btn.danger{color:var(--red)}.btn.small{padding:6px 9px;font-size:.87rem}.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #d6a84f;outline-offset:2px}
+.notice{background:#fff8e7;border:1px solid #f0dfb6;border-radius:12px;padding:12px 14px;color:#67512a;font-size:.9rem;margin-bottom:18px}
+.tabs{display:flex;gap:7px;overflow-x:auto;padding:2px 0 12px;margin-bottom:12px}.tab{white-space:nowrap;border:1px solid var(--line);border-radius:999px;background:var(--paper);padding:9px 14px;color:var(--muted);font-weight:650}.tab.active{background:var(--green);color:white;border-color:var(--green)}
+.layout{display:grid;grid-template-columns:300px minmax(0,1fr);gap:18px;align-items:start}.panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.panel-head{padding:17px 18px 12px;border-bottom:1px solid var(--line)}.panel-head h2,.panel-head h3{margin:0;font-size:1.08rem}.panel-body{padding:15px 18px}
+.day-list{max-height:65vh;overflow:auto;padding:8px}.day-btn{display:block;width:100%;text-align:left;background:transparent;border:0;border-radius:11px;padding:11px 12px;color:var(--ink);margin:2px 0}.day-btn:hover{background:#f0f3ed}.day-btn.active{background:#e5eee7;box-shadow:inset 3px 0 var(--green)}.day-date{font-size:.78rem;color:var(--muted);font-weight:700}.day-place{font-weight:750}.day-sub{font-size:.8rem;color:var(--muted)}
+.content-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}.content-top h2{font-size:1.55rem;margin:0}.content-top p{margin:.25rem 0;color:var(--muted)}.chip{display:inline-flex;align-items:center;border-radius:999px;background:#edf1e8;color:#38594d;padding:5px 9px;font-size:.78rem;font-weight:750}
+.info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:17px 0}.info{border:1px solid var(--line);border-radius:12px;padding:11px 12px;background:#fff}.info span{display:block;color:var(--muted);font-size:.78rem}.info strong{display:block;margin-top:2px;font-size:.92rem}
+.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:22px 0 10px}.section-title h3{margin:0;font-size:1.08rem}.activity-list{display:grid;gap:10px}.activity{border:1px solid var(--line);border-radius:13px;padding:13px 14px;background:#fff}.activity.done{opacity:.68}.activity.done .activity-title{text-decoration:line-through}.activity-line{display:flex;gap:12px;align-items:flex-start}.time{min-width:62px;font-size:.84rem;font-weight:800;color:var(--green);padding-top:2px}.activity-main{flex:1;min-width:0}.activity-title{font-weight:800}.activity-meta{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.tag{font-size:.76rem;color:#5b665f;background:#f0f2ed;border-radius:6px;padding:3px 7px}.activity-notes{font-size:.9rem;color:var(--muted);white-space:pre-wrap}.activity-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.empty{border:1px dashed #c9d1c8;border-radius:12px;padding:22px;text-align:center;color:var(--muted)}.empty strong{display:block;color:var(--ink);margin-bottom:4px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:.86rem;font-weight:750}.field input,.field select,.field textarea{width:100%;border:1px solid #d5dbd3;border-radius:9px;padding:10px;background:white;color:var(--ink)}.field textarea{min-height:88px;resize:vertical}.form-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:16px}
+.modal-backdrop{position:fixed;inset:0;background:#101b18a8;display:none;align-items:center;justify-content:center;padding:16px;z-index:20}.modal-backdrop.open{display:flex}.modal{background:var(--paper);width:min(620px,100%);max-height:92vh;overflow:auto;border-radius:18px;box-shadow:0 25px 80px #0004}.modal-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.modal-head h2{font-size:1.2rem;margin:0}.modal-body{padding:18px 20px}.x{border:0;background:transparent;font-size:1.6rem;line-height:1;color:var(--muted)}
+.overview-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.city-card{padding:15px;border:1px solid var(--line);border-radius:13px;background:#fff}.city-card h3{margin:0 0 4px}.city-card p{margin:0;color:var(--muted);font-size:.9rem}.city-card button{margin-top:10px}
+.route-list{display:grid;gap:10px}.route-item{display:flex;gap:12px;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff}.route-num{width:31px;height:31px;border-radius:50%;background:var(--green);color:white;display:grid;place-items:center;font-weight:800;flex:none}.route-item strong{display:block}.route-item p{margin:3px 0 0;color:var(--muted);font-size:.9rem}
+.map-toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:14px}.map-toolbar select{border:1px solid var(--line);border-radius:9px;padding:10px;background:var(--paper);color:var(--ink)}.map-frame{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#edf1e7}.map-frame svg{display:block;width:100%;height:auto;min-height:280px}.map-legend{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.map-key{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--muted)}.dot{width:10px;height:10px;border-radius:50%;display:inline-block;background:#b54d3d}.map-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}.map-point{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--paper);font-size:.9rem}.map-point strong{display:block}.map-point span{color:var(--muted);font-size:.8rem}.map-note{font-size:.85rem;color:var(--muted);margin:10px 0}.kind-transport{border-left:4px solid #5279a8}.kind-activity{border-left:4px solid #d6a84f}.field .hint{font-size:.78rem;color:var(--muted)}
+.footer{color:var(--muted);font-size:.82rem;text-align:center;margin-top:24px}.hidden{display:none!important}
+@media(max-width:760px){.hero{padding:25px 18px}.wrap{padding:15px 12px 35px}.layout{grid-template-columns:1fr}.day-list{display:flex;gap:7px;overflow-x:auto;max-height:none;padding:9px}.day-btn{min-width:155px;border:1px solid var(--line);background:#fff}.day-btn.active{border-color:#b8cdbb}.info-grid{grid-template-columns:1fr 1fr}.info:last-child{grid-column:1/-1}.overview-grid{grid-template-columns:1fr}.content-top h2{font-size:1.35rem}.activity-line{gap:8px}.time{min-width:48px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.hero:after{right:-40px}.toolbar .btn{flex:1}}
+@media(prefers-color-scheme:dark){body.auto-dark{--bg:#111916;--paper:#19231f;--ink:#e8eee9;--muted:#a9b6ae;--green:#9ac7b0;--green2:#b5d8c5;--line:#34433b;--shadow:0 8px 24px #0002}.auto-dark .hero{background:linear-gradient(125deg,#102b25,#21493d)}.auto-dark .btn{background:#202c26;color:var(--ink);border-color:var(--line)}.auto-dark .btn.primary{background:#2c5a49;color:#fff}.auto-dark .day-btn:hover,.auto-dark .day-btn.active{background:#263c31}.auto-dark .info,.auto-dark .activity,.auto-dark .city-card,.auto-dark .route-item,.auto-dark .field input,.auto-dark .field select,.auto-dark .field textarea{background:#202c26;color:var(--ink);border-color:var(--line)}.auto-dark .tag,.auto-dark .chip{background:#293d32;color:#c4e1ce}.auto-dark .notice{background:#3b3321;color:#f3dfaa;border-color:#635330}.auto-dark .tab{background:#202c26;color:var(--muted);border-color:var(--line)}.auto-dark .tab.active{background:#2c5a49;color:#fff}.auto-dark .day-btn{color:var(--ink)}}
+
+/* Edición móvil: tipografía legible, botones táctiles y menos elementos decorativos */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media(max-width:800px){
+ body{font-size:18px;line-height:1.55}
+ .hero{padding:18px 17px 16px}
+ .hero h1{font-size:2rem;line-height:1.15;margin:.25rem 0}
+ .hero p{font-size:1rem;line-height:1.4;margin:.35rem 0 .75rem}
+ .hero:after{font-size:120px;top:-8px;right:-15px}
+ .eyebrow{font-size:.8rem;letter-spacing:.08em}
+ .hero-stats{gap:6px}
+ .stat{font-size:.84rem;padding:6px 9px}
+ .wrap{padding:12px 10px 36px}
+ .toolbar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:12px}
+ .toolbar .btn{width:100%;min-height:48px;padding:9px 7px;font-size:1rem;white-space:normal}
+ .tabs{position:sticky;top:0;z-index:8;background:var(--bg);padding:8px 0 10px;margin:0 0 9px;gap:7px}
+ .tab{min-height:48px;font-size:1rem;padding:10px 14px}
+ .layout{grid-template-columns:minmax(0,1fr);gap:12px}
+ .panel-head{padding:12px 14px}
+ .panel-head h2,.panel-head h3{font-size:1.15rem}
+ .panel-body{padding:14px}
+ .day-list{display:flex;gap:8px;overflow-x:auto;max-height:none;padding:9px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+ .day-btn{min-width:174px;scroll-snap-align:start;border:1px solid var(--line);background:var(--paper);padding:12px}
+ .day-date,.day-sub{font-size:.92rem}
+ .day-place{font-size:1.05rem}
+ .content-top{gap:10px}
+ .content-top h2{font-size:1.45rem}
+ .content-top p{font-size:.99rem}
+ .chip{font-size:.88rem;padding:6px 10px}
+ .info-grid{grid-template-columns:1fr 1fr;gap:8px}
+ .info{padding:12px}
+ .info span{font-size:.89rem}
+ .info strong{font-size:1rem;overflow-wrap:anywhere}
+ .section-title h3{font-size:1.14rem}
+ .btn{min-height:46px;padding:10px 12px;font-size:1rem}
+ .btn.small{min-height:44px;padding:9px 12px;font-size:.98rem}
+ .activity{padding:14px 12px}
+ .activity-line{gap:9px}
+ .time{font-size:.94rem;min-width:58px}
+ .activity-title{font-size:1.1rem}
+ .activity-notes,.route-item p,.city-card p,.notice,.map-note{font-size:1rem}
+ .tag{font-size:.9rem;padding:4px 8px}
+ .activity-actions{gap:8px}
+ .empty{font-size:1rem;padding:18px 12px}
+ .field label{font-size:1rem}
+ .field .hint{font-size:.92rem}
+ .field input,.field select,.field textarea{font-size:16px;min-height:48px;padding:12px}
+ .field textarea{min-height:110px}
+ .form-grid{grid-template-columns:1fr}
+ .field.full{grid-column:auto}
+ .modal-backdrop{padding:8px;align-items:flex-end}
+ .modal{width:100%;max-height:94dvh;border-radius:18px 18px 8px 8px}
+ .modal-head{padding:13px 16px}
+ .modal-head h2{font-size:1.3rem}
+ .modal-body{padding:14px 16px 22px}
+ .x{min-width:44px;min-height:44px}
+ .form-actions .btn{flex:1}
+ .map-toolbar{display:grid;grid-template-columns:1fr;gap:9px}
+ .map-toolbar select{width:100%;font-size:16px;min-height:48px}
+ .map-frame svg{min-height:240px}
+ .map-list{grid-template-columns:1fr}
+ .map-point,.map-point span,.map-key{font-size:.98rem}
+ .overview-grid{grid-template-columns:1fr}
+ .city-card h3{font-size:1.18rem}
+ .notice{padding:11px 12px}
+}
+@media(max-width:390px){
+ body{font-size:17px}
+ .hero h1{font-size:1.8rem}
+ .info-grid{grid-template-columns:1fr}
+ .info:last-child{grid-column:auto}
+ .toolbar .btn{font-size:.94rem}
+ .activity-line{display:block}
+ .time{margin-bottom:5px}
+}
+
+</style>
+</head>
+<body class="auto-dark">
+<header class="hero">
+  <div class="eyebrow">旅 · Diario de viaje · Otoño 2026</div>
+  <h1>Japón, paso a paso</h1>
+  <p>Tu guía personal del 28 de octubre al 18 de noviembre de 2026. Organiza cada jornada, guarda actividades y consulta tu itinerario aunque no tengas conexión.</p>
+  <div class="hero-stats">
+    <div class="stat">📅 <strong>22 días de calendario</strong></div>
+    <div class="stat">🛏️ <strong>20 noches previstas</strong></div>
+    <div class="stat">🗾 <strong>7 etapas</strong></div>
+  </div>
+</header>
+<main class="wrap">
+  <div class="toolbar">
+    <button class="btn primary" id="addTop">＋ Añadir actividad</button>
+    <button class="btn soft" id="addTransportTop">＋ Añadir transporte</button>
+    <button class="btn" id="exportBtn">⇩ Exportar copia</button>
+    <button class="btn" id="importBtn">⇧ Importar copia</button>
+    <button class="btn" id="printBtn">Imprimir / PDF</button>
+    <input id="importFile" type="file" accept=".json,application/json" class="hidden">
+  </div>
+  <div class="notice"><strong>Uso sin conexión:</strong> esta guía no necesita Internet para consultar ni editar actividades. Los cambios se guardan en este navegador cuando su almacenamiento local está disponible. Como los archivos HTML abiertos directamente pueden tener restricciones según el navegador, exporta copias JSON con frecuencia y antes de cambiar de dispositivo.</div>
+  <nav class="tabs" aria-label="Secciones">
+    <button class="tab active" data-view="day">Día a día</button>
+    <button class="tab" data-view="overview">Etapas</button>
+    <button class="tab" data-view="route">Ruta y transportes</button>
+    <button class="tab" data-view="maps">Mapas sin conexión</button>
+    <button class="tab" data-view="help">Ayuda y datos</button>
+  </nav>
+  <section id="dayView">
+    <div class="layout">
+      <aside class="panel">
+        <div class="panel-head"><h2>Tu calendario</h2></div>
+        <div class="day-list" id="dayList"></div>
+      </aside>
+      <section class="panel">
+        <div class="panel-body">
+          <div class="content-top">
+            <div><span class="chip" id="dayCounter">Día 1</span><h2 id="selectedTitle">28 de octubre</h2><p id="selectedSubtitle"></p></div>
+            <div class="toolbar" style="margin:0"><button class="btn primary" id="addDay">＋ Actividad</button><button class="btn soft" id="addTransportDay">＋ Transporte</button></div>
+          </div>
+          <div class="info-grid">
+            <div class="info"><span>Ciudad / etapa</span><strong id="dayPlace">Vuelo</strong></div>
+            <div class="info"><span>Alojamiento</span><strong id="dayStay">Vuelo nocturno</strong></div>
+            <div class="info"><span>Notas del día</span><strong id="dayNote">Añade tus apuntes</strong></div>
+          </div>
+          <div class="section-title"><h3>Actividades y apuntes</h3><span class="chip" id="activityCount">0 actividades</span></div>
+          <div class="activity-list" id="activityList"></div>
+          <div class="section-title"><h3>Notas de la jornada</h3><button class="btn small" id="editNotes">Editar notas</button></div>
+          <div id="notesDisplay" class="empty">Añade recordatorios, reservas, direcciones o información útil para este día.</div>
+        </div>
+      </section>
+    </div>
+  </section>
+  <section id="overviewView" class="hidden">
+    <div class="panel"><div class="panel-head"><h2>Etapas del viaje</h2></div><div class="panel-body"><div class="overview-grid" id="overviewGrid"></div></div></div>
+  </section>
+  <section id="routeView" class="hidden">
+    <div class="panel"><div class="panel-head"><h2>Ruta y desplazamientos</h2></div><div class="panel-body">
+      <p>Orden previsto según tus pernoctaciones. Los horarios y billetes concretos deben confirmarse antes del viaje. Los enlaces a mapas se abren cuando hay conexión; las direcciones escritas se pueden consultar sin ella.</p>
+      <div class="route-list" id="routeList"></div>
+      <div class="notice" style="margin-top:15px;margin-bottom:0">Consejo: guarda capturas de pantalla de los billetes, reservas y mapas que necesites. Los enlaces externos no funcionan sin conexión.</div>
+    </div></div>
+  </section>
+  <section id="mapsView" class="hidden">
+    <div class="panel"><div class="panel-head"><h2>Mapas guardados para consultar sin conexión</h2></div><div class="panel-body">
+      <div class="map-toolbar"><label for="mapChoice"><strong>Mapa:</strong></label><select id="mapChoice"><option value="japan">Japón · ruta completa</option><option value="osaka">Osaka</option><option value="gyokuzoin">Templo de Gyokuzoin</option><option value="kyoto">Kioto</option><option value="kinosaki">Kinosaki Onsen</option><option value="kanazawa">Kanazawa</option><option value="takayama">Takayama</option><option value="tokyo">Tokio</option></select><button class="btn small" id="mapSelectedDay">Ver día seleccionado</button></div>
+      <div class="map-frame" id="mapCanvas" aria-label="Mapa vectorial sin conexión"></div>
+      <div class="map-legend"><span class="map-key"><i class="dot" style="background:#b54d3d"></i>Etapas y lugares principales</span><span class="map-key"><i class="dot" style="background:#5279a8"></i>Transportes añadidos</span><span class="map-key"><i class="dot" style="background:#d6a84f"></i>Actividades añadidas con coordenadas</span></div>
+      <p class="map-note"><strong>Importante:</strong> los mapas incluidos son esquemas vectoriales locales, guardados dentro de este HTML. Sirven para situar las etapas y los puntos marcados sin conexión, pero no son cartografía callejera oficial ni ofrecen navegación giro a giro. Las ubicaciones añadidas por ti aparecerán en el mapa si completas sus coordenadas de latitud y longitud.</p>
+      <div id="mapPointList" class="map-list"></div>
+    </div></div>
+  </section>
+  <section id="helpView" class="hidden">
+    <div class="panel"><div class="panel-head"><h2>Ayuda y copias de seguridad</h2></div><div class="panel-body">
+      <h3>Guardar y recuperar</h3>
+      <ol><li>Los cambios se guardan automáticamente en el almacenamiento local del navegador, si está permitido.</li><li>Pulsa <strong>Exportar copia</strong> para descargar un archivo JSON con tus actividades y notas.</li><li>En otro ordenador o móvil, abre esta guía y pulsa <strong>Importar copia</strong> para recuperar los datos.</li><li>La importación reemplaza los datos actuales de la guía. Exporta una copia antes si quieres conservarlos.</li></ol>
+      <h3>Privacidad</h3><p>La guía no envía tus datos a ningún servidor. Las actividades y notas permanecen en el navegador y en las copias que tú descargues.</p>
+      <h3>Itinerario base</h3><p>Las fechas y ciudades se han cargado según tu lista de pernoctaciones. Las actividades son editables y no se han añadido reservas ni horarios no confirmados.</p>
+      <div class="toolbar"><button class="btn" id="exportHelp">Exportar copia ahora</button><button class="btn danger" id="resetBtn">Restaurar itinerario inicial</button></div>
+      <p id="storageStatus" class="activity-notes"></p>
+    </div></div>
+  </section>
+  <div class="footer">Japón 2026 · Guía personal sin conexión · Recuerda exportar una copia de seguridad.</div>
+</main>
+
+<div class="modal-backdrop" id="activityModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-head"><h2 id="modalTitle">Añadir actividad</h2><button class="x" id="closeModal" aria-label="Cerrar">×</button></div>
+    <div class="modal-body">
+      <form id="activityForm">
+        <div class="form-grid">
+          <div class="field"><label for="actDate">Día</label><select id="actDate" required></select></div>
+          <div class="field"><label for="actTime">Hora</label><input id="actTime" type="time"></div>
+          <div class="field full"><label for="actTitle">Actividad *</label><input id="actTitle" required maxlength="120" placeholder="Ej. Visita al templo, cena, tren…"></div>
+          <div class="field" id="actTypeWrap"><label for="actType">Categoría de actividad</label><select id="actType"><option>Visita</option><option>Comida</option><option>Cena</option><option>Paseo</option><option>Excursión</option><option>Reserva</option><option>Compras</option><option>Descanso</option><option>Otro</option></select></div>
+          <div class="field hidden" id="transportTypeWrap"><label for="transportType">Tipo de transporte / gestión</label><select id="transportType"><option>Tren / Shinkansen</option><option>Metro / tren local</option><option>Autobús</option><option>Taxi / traslado</option><option>Vuelo</option><option>Llegada a terminal</option><option>Recogida de maletas</option><option>Envío de maletas</option><option>Compra de tickets</option><option>Itinerario dentro de estación</option><option>Plano de aeropuerto / estación</option><option>Otro transporte</option></select></div>
+          <div class="field"><label for="actCost">Coste estimado (¥)</label><input id="actCost" type="number" min="0" step="1" placeholder="Opcional"></div>
+          <div class="field full"><label for="actPlace">Dirección / lugar</label><input id="actPlace" maxlength="180" placeholder="Dirección, estación o punto de encuentro"></div>
+          <div class="field full hidden" id="transportFromWrap"><label for="transportFrom">Origen / punto de salida</label><input id="transportFrom" maxlength="180" placeholder="Ej. Kyoto Station, terminal 2"></div>
+          <div class="field full hidden" id="transportToWrap"><label for="transportTo">Destino / punto de llegada</label><input id="transportTo" maxlength="180" placeholder="Ej. Kanazawa Station, hotel"></div>
+          <div class="field"><label for="actLat">Latitud (opcional)</label><input id="actLat" type="number" min="-90" max="90" step="any" placeholder="Ej. 35.0116"><span class="hint">Para colocar un marcador en el mapa sin conexión.</span></div>
+          <div class="field"><label for="actLon">Longitud (opcional)</label><input id="actLon" type="number" min="-180" max="180" step="any" placeholder="Ej. 135.7681"></div>
+          <div class="field full hidden" id="transportDetailsWrap"><label for="transportDetails">Tickets, equipaje e instrucciones de estación</label><textarea id="transportDetails" maxlength="3000" placeholder="Terminal, recogida de maletas, envío takkyubin, número de tren, andén, transbordos, máquina de tickets, salida…"></textarea></div>
+          <div class="field full"><label for="actNotes">Notas</label><textarea id="actNotes" maxlength="2000" placeholder="Reserva, billete, instrucciones, duración…"></textarea></div>
+        </div>
+        <div class="form-actions"><button type="button" class="btn" id="cancelModal">Cancelar</button><button type="submit" class="btn primary">Guardar actividad</button></div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal-backdrop" id="notesModal" role="dialog" aria-modal="true" aria-labelledby="notesModalTitle">
+  <div class="modal"><div class="modal-head"><h2 id="notesModalTitle">Notas de la jornada</h2><button class="x" id="closeNotes" aria-label="Cerrar">×</button></div>
+    <div class="modal-body"><div class="field"><label for="dayNotesInput">Notas, reservas y recordatorios</label><textarea id="dayNotesInput" style="min-height:180px" maxlength="5000" placeholder="Escribe aquí tus apuntes para este día…"></textarea></div><div class="form-actions"><button class="btn" id="cancelNotes" type="button">Cancelar</button><button class="btn primary" id="saveNotes" type="button">Guardar notas</button></div></div>
+  </div>
+</div>
+<script>
+(function(){
+"use strict";
+const places=[
+ {id:"osaka",name:"Osaka",from:"2026-10-29",to:"2026-11-02",nights:4,stay:"Osaka",description:"Llegada, barrios, gastronomía y excursiones según tus preferencias."},
+ {id:"gyokuzoin",name:"Templo de Gyokuzoin",from:"2026-11-02",to:"2026-11-03",nights:1,stay:"Templo de Gyokuzoin",description:"Noche en el templo. Confirma hora de llegada, normas, comidas y reserva."},
+ {id:"kyoto",name:"Kioto",from:"2026-11-03",to:"2026-11-07",nights:4,stay:"Kioto",description:"Templos, jardines, barrios tradicionales y paseos."},
+ {id:"kinosaki",name:"Kinosaki Onsen",from:"2026-11-07",to:"2026-11-08",nights:1,stay:"Kinosaki Onsen",description:"Pueblo termal y baños tradicionales."},
+ {id:"kanazawa",name:"Kanazawa",from:"2026-11-08",to:"2026-11-11",nights:3,stay:"Kanazawa",description:"Jardines, mercado y barrios históricos."},
+ {id:"takayama",name:"Takayama",from:"2026-11-11",to:"2026-11-13",nights:2,stay:"Takayama",description:"Casco histórico, mercados y cocina local."},
+ {id:"tokyo",name:"Tokio",from:"2026-11-13",to:"2026-11-18",nights:5,stay:"Tokio",description:"Barrios, visitas, compras y preparación del vuelo de regreso."}
+];
+const baseDays=[];
+function dateISO(d){return d.toISOString().slice(0,10)}
+function localDate(s){const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d,12)}
+function addDays(d,n){const x=new Date(d);x.setDate(x.getDate()+n);return x}
+function fmtDate(s,opts={day:"numeric",month:"long"}){return new Intl.DateTimeFormat("es-ES",opts).format(localDate(s))}
+function dayPlace(s){if(s==="2026-10-28")return {name:"Vuelo Madrid → Osaka",stay:"Vuelo",note:"Salida desde Madrid"};if(s==="2026-11-18")return {name:"Vuelo Tokio → Madrid",stay:"Vuelo",note:"Regreso a Madrid"};const p=places.find(x=>s>=x.from&&s<x.to);return p?{name:p.name,stay:p.stay,note:""}:{name:"Traslado",stay:"Por confirmar",note:""}}
+for(let d=new Date(2026,9,28,12);d<=new Date(2026,10,18,12);d=addDays(d,1)){const iso=dateISO(d),p=dayPlace(iso);baseDays.push({date:iso,place:p.name,stay:p.stay,note:p.note,notes:"",activities:[]})}
+const KEY="japon_guia_2026_v1";
+let data, selected=0, editingId=null;
+function fresh(){return {version:1,trip:"Japón 2026",days:baseDays.map(d=>({...d,activities:[]}))}}
+function load(){
+ try{const raw=localStorage.getItem(KEY);if(raw){const parsed=JSON.parse(raw);if(parsed&&Array.isArray(parsed.days)&&parsed.days.length){return normalize(parsed)}}}catch(e){}
+ return fresh()
+}
+function normalize(obj){const freshData=fresh();const byDate=new Map((obj.days||[]).map(d=>[d.date,d]));freshData.days=freshData.days.map(d=>{const saved=byDate.get(d.date);return saved?{...d,...saved,activities:Array.isArray(saved.activities)?saved.activities.map(a=>({...a,kind:a.kind||"activity",date:a.date||saved.date})):[]}:d});return freshData}
+data=load();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data));setStorage("Cambios guardados en este navegador (si el almacenamiento local está disponible).")}catch(e){setStorage("No se pudo confirmar el guardado automático. Exporta una copia JSON para conservar tus cambios.")}}
+function setStorage(s){const el=document.getElementById("storageStatus");if(el)el.textContent=s}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function activeDay(){return data.days[selected]}
+function renderDays(){
+ const list=document.getElementById("dayList");list.innerHTML="";
+ data.days.forEach((d,i)=>{const b=document.createElement("button");b.className="day-btn"+(i===selected?" active":"");b.innerHTML=`<div class="day-date">${esc(fmtDate(d.date,{weekday:"short",day:"numeric",month:"short"}))} · Día ${i+1}</div><div class="day-place">${esc(d.place)}</div><div class="day-sub">${d.activities.length} actividad${d.activities.length===1?"":"es"}${d.stay?" · 🛏 "+esc(d.stay):""}</div>`;b.onclick=()=>{selected=i;renderAll()};list.appendChild(b)})
+}
+function renderDay(){
+ const d=activeDay();document.getElementById("dayCounter").textContent=`Día ${selected+1} de ${data.days.length}`;
+ document.getElementById("selectedTitle").textContent=fmtDate(d.date,{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+ document.getElementById("selectedSubtitle").textContent=d.date==="2026-10-28"?"Salida desde Madrid":d.date==="2026-11-18"?"Vuelo de regreso a Madrid":"Planifica las visitas y los desplazamientos de esta jornada.";
+ document.getElementById("dayPlace").textContent=d.place;document.getElementById("dayStay").textContent=d.stay||"Por confirmar";document.getElementById("dayNote").textContent=d.note||"Sin notas breves";
+ document.getElementById("activityCount").textContent=`${d.activities.length} actividad${d.activities.length===1?"":"es"}`;
+ const list=document.getElementById("activityList");
+ if(!d.activities.length){list.innerHTML='<div class="empty"><strong>Este día está libre de actividades.</strong>Añade visitas, transportes, comidas o reservas con el botón «Actividad».</div>'}
+ else{list.innerHTML="";d.activities.sort((a,b)=>(a.time||"").localeCompare(b.time||""));d.activities.forEach(a=>{const el=document.createElement("article");el.className="activity "+(a.kind==="transport"?"kind-transport ":"kind-activity ")+(a.done?" done":"");el.innerHTML=`<div class="activity-line"><div class="time">${esc(a.time||"Sin hora")}</div><div class="activity-main"><div class="activity-title">${a.kind==="transport"?"🚆 ":"📍 "}${esc(a.title)}</div><div class="activity-meta"><span class="tag">${a.kind==="transport"?"Transporte · ":"Actividad · "}${esc(a.type||"Otro")}</span>${a.cost!==""&&a.cost!=null?`<span class="tag">¥ ${esc(a.cost)}</span>`:""}${a.place?`<span class="tag">📍 ${esc(a.place)}</span>`:""}${a.from?`<span class="tag">Desde: ${esc(a.from)}</span>`:""}${a.to?`<span class="tag">Hasta: ${esc(a.to)}</span>`:""}</div>${a.details?`<div class="activity-notes"><strong>Gestión de transporte:</strong> ${esc(a.details)}</div>`:""}${a.notes?`<div class="activity-notes">${esc(a.notes)}</div>`:""}<div class="activity-actions"><button class="btn small soft" data-action="done" data-id="${esc(a.id)}">${a.done?"↶ Desmarcar":"✓ Hecho"}</button><button class="btn small" data-action="edit" data-id="${esc(a.id)}">Editar</button><button class="btn small danger" data-action="delete" data-id="${esc(a.id)}">Eliminar</button></div></div></div>`;list.appendChild(el)})}
+ document.getElementById("notesDisplay").className=d.notes?"activity-notes":"empty";document.getElementById("notesDisplay").textContent=d.notes||"Añade recordatorios, reservas, direcciones o información útil para este día."
+}
+function renderOverview(){const grid=document.getElementById("overviewGrid");grid.innerHTML="";places.forEach((p,i)=>{const card=document.createElement("article");card.className="city-card";card.innerHTML=`<h3>${esc(p.name)}</h3><p>${esc(fmtDate(p.from,{day:"numeric",month:"short"}))} – ${esc(fmtDate(p.to,{day:"numeric",month:"short"}))} · ${p.nights} noche${p.nights===1?"":"s"}</p><p style="margin-top:7px">${esc(p.description)}</p><button class="btn small" data-date="${p.from}">Ver jornada</button>`;grid.appendChild(card)});grid.querySelectorAll("button").forEach(b=>b.onclick=()=>goDate(b.dataset.date))}
+function renderRoute(){const entries=[["Madrid → Osaka","28–29 oct","Vuelo internacional. Confirma horarios, terminales y traslado al alojamiento."],["Osaka → Gyokuzoin","2 nov","Desplazamiento al templo. Comprueba ruta exacta, hora límite de llegada y condiciones de estancia."],["Gyokuzoin → Kioto","3 nov","Traslado a Kioto. Comprueba estaciones y conexiones para el día."],["Kioto → Kinosaki Onsen","7 nov","Tren hacia Kinosaki Onsen; revisa reserva y horario."],["Kinosaki Onsen → Kanazawa","8 nov","Planifica el enlace ferroviario y deja margen para transbordos."],["Kanazawa → Takayama","11 nov","Comprueba el servicio elegido y los horarios vigentes."],["Takayama → Tokio","13 nov","Comprueba la combinación de trenes y transbordos."],["Tokio → Madrid","18 nov","Confirma aeropuerto, terminal, hora de facturación y traslado."]];document.getElementById("routeList").innerHTML=entries.map((r,i)=>`<div class="route-item"><div class="route-num">${i+1}</div><div><strong>${esc(r[0])}</strong><span class="tag">${esc(r[1])}</span><p>${esc(r[2])}</p></div></div>`).join("")}
+function renderAll(){renderDays();renderDay();renderOverview();renderRoute();document.getElementById("actDate").innerHTML=data.days.map((d,i)=>`<option value="${d.date}">${esc(fmtDate(d.date,{day:"numeric",month:"long"}))} · ${esc(d.place)}</option>`).join("")}
+function goDate(s){selected=Math.max(0,data.days.findIndex(d=>d.date===s));showView("day");renderAll();window.scrollTo({top:0,behavior:"smooth"})}
+function showView(v){document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===v));["day","overview","route","maps","help"].forEach(x=>document.getElementById(x+"View").classList.toggle("hidden",x!==v));if(v==="maps")renderMap()}
+function openActivity(kind="activity",id=null){if(typeof kind==="string"&&/^a\d/.test(kind)&&id===null){id=kind;kind="activity"}editingId=id;const form=document.getElementById("activityForm");form.reset();let d=activeDay();document.getElementById("actDate").value=d.date;document.getElementById("modalTitle").textContent=id?"Editar elemento":(kind==="transport"?"Añadir transporte":"Añadir actividad");
+ const setKind=k=>{form.dataset.kind=k;document.getElementById("actTypeWrap").classList.toggle("hidden",k==="transport");["transportTypeWrap","transportFromWrap","transportToWrap","transportDetailsWrap"].forEach(x=>document.getElementById(x).classList.toggle("hidden",k!=="transport"));};setKind(kind);
+ if(id){let a=null;data.days.forEach(day=>{const x=day.activities.find(x=>x.id===id);if(x){a=x;d=day}});if(a){setKind(a.kind||"activity");document.getElementById("actDate").value=a.date||d.date;document.getElementById("actTime").value=a.time||"";document.getElementById("actTitle").value=a.title||"";document.getElementById("actType").value=a.kind==="transport"?"Visita":(a.type||"Otro");document.getElementById("transportType").value=a.kind==="transport"?(a.type||"Tren / Shinkansen"):"Tren / Shinkansen";document.getElementById("actCost").value=a.cost??"";document.getElementById("actPlace").value=a.place||"";document.getElementById("actNotes").value=a.notes||"";document.getElementById("transportFrom").value=a.from||"";document.getElementById("transportTo").value=a.to||"";document.getElementById("transportDetails").value=a.details||"";document.getElementById("actLat").value=a.lat??"";document.getElementById("actLon").value=a.lon??""}}
+ document.getElementById("activityModal").classList.add("open");setTimeout(()=>document.getElementById("actTitle").focus(),40)}
+function closeActivity(){document.getElementById("activityModal").classList.remove("open");editingId=null}
+function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="japon_2026_copia_seguridad.json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url)}
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>showView(t.dataset.view)));
+document.getElementById("addTop").onclick=()=>openActivity("activity");document.getElementById("addDay").onclick=()=>openActivity("activity");document.getElementById("addTransportTop").onclick=()=>openActivity("transport");document.getElementById("addTransportDay").onclick=()=>openActivity("transport");
+document.getElementById("closeModal").onclick=closeActivity;document.getElementById("cancelModal").onclick=closeActivity;
+document.getElementById("activityModal").addEventListener("click",e=>{if(e.target.id==="activityModal")closeActivity()});
+document.getElementById("activityForm").addEventListener("submit",e=>{e.preventDefault();const date=document.getElementById("actDate").value,kind=document.getElementById("activityForm").dataset.kind||"activity";const lat=document.getElementById("actLat").value,lon=document.getElementById("actLon").value;const a={id:editingId||("a"+Date.now()+Math.random().toString(16).slice(2,6)),date,kind,time:document.getElementById("actTime").value,title:document.getElementById("actTitle").value.trim(),type:kind==="transport"?document.getElementById("transportType").value:document.getElementById("actType").value,cost:document.getElementById("actCost").value,place:document.getElementById("actPlace").value.trim(),notes:document.getElementById("actNotes").value.trim(),from:document.getElementById("transportFrom").value.trim(),to:document.getElementById("transportTo").value.trim(),details:document.getElementById("transportDetails").value.trim(),lat:lat===""?null:Number(lat),lon:lon===""?null:Number(lon),done:false};if(!a.title)return;data.days.forEach(d=>{const ix=d.activities.findIndex(x=>x.id===editingId);if(ix>=0){a.done=d.activities[ix].done;d.activities.splice(ix,1)}});const target=data.days.find(d=>d.date===date);if(target)target.activities.push(a);selected=data.days.findIndex(d=>d.date===date);save();closeActivity();renderAll()});
+document.getElementById("activityList").addEventListener("click",e=>{const b=e.target.closest("button[data-action]");if(!b)return;const id=b.dataset.id,action=b.dataset.action;const d=activeDay(),a=d.activities.find(x=>x.id===id);if(action==="edit")openActivity(id);if(action==="done"&&a){a.done=!a.done;save();renderAll()}if(action==="delete"&&a&&confirm("¿Eliminar la actividad «"+a.title+"»?")){d.activities=d.activities.filter(x=>x.id!==id);save();renderAll()}});
+document.getElementById("editNotes").onclick=()=>{document.getElementById("dayNotesInput").value=activeDay().notes||"";document.getElementById("notesModal").classList.add("open")};
+function closeNotes(){document.getElementById("notesModal").classList.remove("open")}
+document.getElementById("closeNotes").onclick=closeNotes;document.getElementById("cancelNotes").onclick=closeNotes;document.getElementById("notesModal").addEventListener("click",e=>{if(e.target.id==="notesModal")closeNotes()});
+document.getElementById("saveNotes").onclick=()=>{activeDay().notes=document.getElementById("dayNotesInput").value;save();closeNotes();renderDay()};
+document.getElementById("exportBtn").onclick=exportData;document.getElementById("exportHelp").onclick=exportData;
+document.getElementById("importBtn").onclick=()=>document.getElementById("importFile").click();
+document.getElementById("importFile").addEventListener("change",async e=>{const file=e.target.files[0];if(!file)return;try{const parsed=JSON.parse(await file.text());if(!parsed||!Array.isArray(parsed.days))throw new Error("Formato no reconocido");if(!confirm("La importación reemplazará los datos actuales. ¿Continuar?"))return;data=normalize(parsed);selected=0;save();renderAll();alert("Copia importada correctamente.")}catch(err){alert("No se pudo importar el archivo. Selecciona una copia JSON exportada desde esta guía.")}finally{e.target.value=""}});
+document.getElementById("printBtn").onclick=()=>window.print();
+document.getElementById("resetBtn").onclick=()=>{if(confirm("Se borrarán las actividades y notas guardadas y se restaurará el itinerario inicial. ¿Has exportado una copia si la necesitas?")){data=fresh();selected=0;save();renderAll();showView("day")}};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeActivity();closeNotes()}});
+const cityMaps={
+ osaka:{title:"Osaka · esquema urbano",bounds:[34.62,34.78,135.40,135.58],points:[["Osaka Castle",135.5259,34.6873],["Umeda / Osaka Station",135.4983,34.7025],["Dotonbori",135.5023,34.6687],["Namba",135.5016,34.6627],["Shinsekai",135.5063,34.6525],["Shin-Osaka Station",135.501,34.7334]]},
+ gyokuzoin:{title:"Templo de Gyokuzoin · zona aproximada",bounds:[34.55,34.75,135.55,135.85],points:[["Templo de Gyokuzoin",135.75,34.65],["Área de referencia",135.70,34.67]]},
+ kyoto:{title:"Kioto · esquema urbano",bounds:[34.95,35.10,135.70,135.82],points:[["Kyoto Station",135.7588,34.9858],["Kiyomizu-dera",135.785,34.9949],["Gion",135.7785,35.0036],["Nishiki Market",135.7648,35.005],["Nijo Castle",135.748,35.0142],["Kinkaku-ji",135.7292,35.0394],["Arashiyama",135.681,35.0094],["Fushimi Inari",135.7727,34.9671]]},
+ kinosaki:{title:"Kinosaki Onsen · esquema local",bounds:[35.60,35.66,134.78,134.83],points:[["Kinosaki Onsen Station",134.812,35.6237],["Canal y paseo central",134.813,35.626],["Goshono-yu",134.8145,35.627],["Ichinoyu",134.812,35.6255]]},
+ kanazawa:{title:"Kanazawa · esquema urbano",bounds:[36.53,36.60,136.62,136.70],points:[["Kanazawa Station",136.6489,36.5781],["Omicho Market",136.656,36.5698],["Kenrokuen",136.6625,36.5621],["Kanazawa Castle",136.658,36.5658],["Higashi Chaya",136.667,36.572],["Nagamachi",136.651,36.559]]},
+ takayama:{title:"Takayama · esquema urbano",bounds:[36.12,36.17,137.23,137.28],points:[["Takayama Station",137.252,36.1428],["Sanmachi Suji",137.257,36.142],["Miyagawa Morning Market",137.258,36.147],["Takayama Jinya",137.253,36.139]]},
+ tokyo:{title:"Tokio · esquema de áreas principales",bounds:[35.62,35.78,139.62,139.86],points:[["Tokyo Station",139.7671,35.6812],["Shinjuku Station",139.7005,35.6896],["Shibuya Crossing",139.7006,35.6595],["Asakusa / Senso-ji",139.7967,35.7148],["Ueno Park",139.773,35.7156],["Akihabara",139.773,35.6984],["Tokyo Tower",139.7454,35.6586],["Meiji Jingu",139.6993,35.6764],["Ginza",139.7649,35.6717]]}
+};
+const stageCoords=[{name:"Osaka",lon:135.5023,lat:34.6937,id:"osaka"},{name:"Templo de Gyokuzoin",lon:135.75,lat:34.65,id:"gyokuzoin"},{name:"Kioto",lon:135.7681,lat:35.0116,id:"kyoto"},{name:"Kinosaki Onsen",lon:134.812,lat:35.6237,id:"kinosaki"},{name:"Kanazawa",lon:136.6562,lat:36.5613,id:"kanazawa"},{name:"Takayama",lon:137.252,lat:36.1428,id:"takayama"},{name:"Tokio",lon:139.6917,lat:35.6895,id:"tokyo"}];
+function renderMap(){const choice=document.getElementById("mapChoice").value;let svg="",points=[];if(choice==="japan"){
+ const xy=p=>[50+(p.lon-129.5)*55,460-(p.lat-30)*31];const islands='<path d="M175 420 L190 390 L210 370 L230 340 L245 315 L260 280 L275 250 L295 225 L315 190 L335 160 L350 140 L365 153 L350 185 L335 220 L320 250 L305 280 L292 315 L275 345 L255 370 L230 395 Z"/><path d="M355 205 L380 180 L405 160 L435 145 L465 138 L490 150 L475 172 L450 185 L425 205 L395 220 L370 228 Z"/><path d="M250 365 L270 350 L290 345 L300 360 L285 375 L265 380 Z"/><path d="M200 430 L215 420 L228 428 L220 442 Z"/>';
+ const route=stageCoords.map(xy).map(p=>p.join(",")).join(" ");svg=`<svg viewBox="0 0 720 500" role="img" aria-label="Mapa esquemático de Japón con las siete etapas"><rect width="720" height="500" fill="#e8f1f0"/><path d="M0 0H720V500H0Z" fill="#e8f1f0"/><g fill="#dce5d2" stroke="#a9b9a4" stroke-width="2">${islands}</g><g fill="none" stroke="#b8c8bc" stroke-width="1" stroke-dasharray="3 6"><path d="M40 100H680M40 200H680M40 300H680M40 400H680M150 30V470M300 30V470M450 30V470M600 30V470"/></g><polyline points="${route}" fill="none" stroke="#b54d3d" stroke-width="3" stroke-dasharray="6 5"/>${stageCoords.map((p,i)=>{const [x,y]=xy(p);return `<g><circle cx="${x}" cy="${y}" r="8" fill="#b54d3d" stroke="white" stroke-width="3"/><text x="${x+11}" y="${y-7}" font-size="13" font-weight="700" fill="#203a32">${i+1}. ${esc(p.name)}</text></g>`}).join("")}<text x="22" y="30" font-size="18" font-weight="800" fill="#173c36">Japón · ruta general</text><text x="22" y="484" font-size="11" fill="#53665f">Esquema de orientación · no a escala</text></svg>`;points=stageCoords.map((p,i)=>({name:(i+1)+". "+p.name,desc:"Etapa del itinerario",id:p.id}));
+ }else{const city=cityMaps[choice]||cityMaps.osaka;const [minLat,maxLat,minLon,maxLon]=city.bounds;const xy=(lon,lat)=>[60+(lon-minLon)/(maxLon-minLon)*600,420-(lat-minLat)/(maxLat-minLat)*360];let streets="";for(let y=75;y<430;y+=48)streets+=`<path d="M25 ${y} Q300 ${y-18} 695 ${y+8}"/>`;for(let x=45;x<700;x+=58)streets+=`<path d="M${x} 45 Q${x-25} 220 ${x+10} 445"/>`;const local=city.points.map((p,i)=>({name:p[0],lon:p[1],lat:p[2],kind:"base",desc:"Punto de referencia (posición aproximada)"}));data.days.forEach(d=>d.activities.forEach(a=>{if(a.lat!=null&&a.lon!=null&&Number.isFinite(Number(a.lat))&&Number.isFinite(Number(a.lon))){const dp=dayPlace(a.date).name.toLowerCase();const match=({osaka:dp.includes("osaka"),gyokuzoin:dp.includes("gyokuzoin")||dp.includes("templo"),kyoto:dp.includes("kioto")||dp.includes("kyoto"),kinosaki:dp.includes("kinosaki"),kanazawa:dp.includes("kanazawa"),takayama:dp.includes("takayama"),tokyo:dp.includes("tokio")||dp.includes("tokyo")})[choice];if(match){local.push({name:a.title,lon:Number(a.lon),lat:Number(a.lat),kind:a.kind==="transport"?"transport":"activity",desc:fmtDate(a.date)+" · "+(a.kind==="transport"?"Transporte":"Actividad")})}}}));
+ const valid=local.filter(p=>p.lon>=minLon-.02&&p.lon<=maxLon+.02&&p.lat>=minLat-.02&&p.lat<=maxLat+.02);svg=`<svg viewBox="0 0 720 500" role="img" aria-label="${esc(city.title)}"><rect width="720" height="500" fill="#eef1e6"/><g fill="none" stroke="#cbd3c2" stroke-width="10" stroke-linecap="round">${streets}</g><g fill="none" stroke="#fffdf5" stroke-width="6" stroke-linecap="round">${streets}</g><path d="M0 330 Q160 280 260 320 T500 290 T720 310" fill="none" stroke="#9ccbd1" stroke-width="22" opacity=".8"/><path d="M0 330 Q160 280 260 320 T500 290 T720 310" fill="none" stroke="#d7edf0" stroke-width="13"/><path d="M20 460 L700 55" stroke="#b3a58a" stroke-width="5" stroke-dasharray="10 7" opacity=".9"/><text x="22" y="30" font-size="18" font-weight="800" fill="#173c36">${esc(city.title)}</text><text x="22" y="485" font-size="11" fill="#53665f">Mapa esquemático sin conexión · referencias aproximadas</text>${valid.map((p,i)=>{const [x,y]=xy(p.lon,p.lat),color=p.kind==="transport"?"#5279a8":p.kind==="activity"?"#d6a84f":"#b54d3d";return `<g><circle cx="${x}" cy="${y}" r="8" fill="${color}" stroke="white" stroke-width="3"/><text x="${x+10}" y="${y-7}" font-size="11" font-weight="700" fill="#203a32">${esc(p.name.length>24?p.name.slice(0,22)+"…":p.name)}</text></g>`}).join("")}</svg>`;points=valid.map(p=>({name:p.name,desc:p.desc||"Lugar de referencia",kind:p.kind}));}
+ document.getElementById("mapCanvas").innerHTML=svg;document.getElementById("mapPointList").innerHTML=points.map(p=>`<div class="map-point"><strong>${esc(p.name)}</strong><span>${esc(p.desc||"")}</span>${p.id?`<br><button class="btn small" data-godate="${esc(p.id)}">Ver etapa</button>`:""}</div>`).join("");document.querySelectorAll("[data-godate]").forEach(b=>b.onclick=()=>{const p=stageCoords.find(x=>x.id===b.dataset.godate);if(p)goDate(places.find(x=>x.id===p.id)?.from||"2026-10-29")});}
+document.getElementById("mapChoice").addEventListener("change",renderMap);document.getElementById("mapSelectedDay").onclick=()=>{const n=activeDay().place.toLowerCase();let id=Object.keys(cityMaps).find(k=>n.includes(k)||k==="kyoto"&&n.includes("kioto")||k==="kinosaki"&&n.includes("kinosaki"));if(!id&&n.includes("vuelo"))id="japan";document.getElementById("mapChoice").value=id||"japan";renderMap()};
+
+renderAll();
+try{renderMap();}catch(e){}
+try{localStorage.setItem(KEY,JSON.stringify(data));setStorage("Almacenamiento local disponible en este navegador.")}catch(e){setStorage("El navegador no permite guardar automáticamente en este modo. Usa Exportar copia después de editar.")}
+})();
+</script>
+<script>
+// Instalación offline: el navegador exige HTTPS o localhost para activar el service worker.
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) { navigator.serviceWorker.register("./service-worker.js").catch(function(){}); }
+</script>
+</body>
+</html>
